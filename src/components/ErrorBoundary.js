@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert } from "react-bootstrap";
+import "../styles/ErrorBoundary.css";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -7,27 +7,14 @@ class ErrorBoundary extends React.Component {
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError() {
     return { hasError: true };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error("ErrorBoundary caught an error:", error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
-      return (
-        <Alert variant="danger" className="mt-3">
-          <Alert.Heading>Oops! Something went wrong.</Alert.Heading>
-          <p>
-            Please try refreshing the page or contact support if the problem
-            persists.
-          </p>
-        </Alert>
-      );
+      return <h1>Something went wrong.</h1>;
     }
-
     return this.props.children;
   }
 }

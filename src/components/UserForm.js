@@ -1,85 +1,88 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import "../styles/UserForm.css";
 
-const UserForm = ({ user, onSubmit, onCancel }) => {
+function UserForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
-    website: "",
+    department: "",
   });
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   useEffect(() => {
-    if (user) {
-      setFormData(user);
+    if (id) {
+      axios
+        .get(`https://jsonplaceholder.typicode.com/users/${id}`)
+        .then((response) =>
+          setFormData({
+            name: response.data.name,
+            email: response.data.email,
+            department: response.data.company.name,
+          })
+        )
+        .catch(() => setError("Failed to fetch user details"));
     }
-  }, [user]);
+  }, [id]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    const url = id
+      ? `https://jsonplaceholder.typicode.com/users/${id}`
+      : "https://jsonplaceholder.typicode.com/users";
+    const method = id ? "put" : "post";
+
+    axios[method](url, { ...formData, company: { name: formData.department } })
+      .then(() => navigate("/"))
+      .catch(() => setError("Failed to save user"));
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formName">
-        <Form.Label>Name</Form.Label>
-        <Form.Control
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formEmail">
-        <Form.Label>Email</Form.Label>
-        <Form.Control
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formPhone">
-        <Form.Label>Phone</Form.Label>
-        <Form.Control
-          type="tel"
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formWebsite">
-        <Form.Label>Website</Form.Label>
-        <Form.Control
-          type="text"
-          name="website"
-          value={formData.website}
-          onChange={handleChange}
-        />
-      </Form.Group>
-
-      <Button variant="primary" type="submit" className="me-2">
-        Save
-      </Button>
-      <Button variant="secondary" onClick={onCancel}>
-        Cancel
-      </Button>
-    </Form>
+    <div className="user-form">
+      <h1>{id ? "Edit User" : "Add User"}</h1>
+      {error && <p className="error">{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name:
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Email:
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Department:
+          <input
+            type="text"
+            name="department"
+            value={formData.department}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <button type="submit">Save</button>
+      </form>
+    </div>
   );
-};
+}
 
 export default UserForm;

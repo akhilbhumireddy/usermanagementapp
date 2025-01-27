@@ -1,0 +1,19 @@
+.user-list {
+  padding: 20px;
+}
+
+.user-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-list th,
+.user-list td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.user-list button {
+  margin-right: 10px;
+}

@@ -40,35 +40,37 @@ function UserList() {
         Add User
       </button>
       {error && <p className="error">{error}</p>}
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Department</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.name.split(" ")[0]}</td>
-              <td>{user.name.split(" ")[1]}</td>
-              <td>{user.email}</td>
-              <td>{user.company.name}</td>
-              <td>
-                <button onClick={() => navigate(`/edit/${user.id}`)}>
-                  Edit
-                </button>
-                <button onClick={() => handleDelete(user.id)}>Delete</button>
-              </td>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Department</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.name.split(" ")[0]}</td>
+                <td>{user.name.split(" ")[1]}</td>
+                <td>{user.email}</td>
+                <td>{user.company.name}</td>
+                <td>
+                  <button onClick={() => navigate(`/edit/${user.id}`)}>
+                    Edit
+                  </button>
+                  <button onClick={() => handleDelete(user.id)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <div className="pagination">
         {[...Array(10).keys()].map((num) => (
           <button key={num + 1} onClick={() => paginate(num + 1)}>

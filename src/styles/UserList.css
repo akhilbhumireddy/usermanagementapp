@@ -4,6 +4,7 @@
 
 .user-list h1 {
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .user-list .add-user-btn {
@@ -57,4 +58,12 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+@media (max-width: 768px) {
+  table {
+    font-size: 14px;
+  }
+  .add-user-btn {
+    font-size: 12px;
+  }
 }

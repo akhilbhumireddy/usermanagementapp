@@ -1,70 +1,166 @@
-# Getting Started with Create React App
+# User Management Assignment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Objective
 
-## Available Scripts
+Develop a simple web application where users can view, add, edit, and delete user details from a mock backend API.
 
-In the project directory, you can run:
+## Tech Stack
 
-### `npm start`
+- **Frontend**: React
+- **Backend API**: JSONPlaceholder
+- **HTTP Client**: Axios or Fetch
+- **Styling**: CSS or libraries like Bootstrap
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Completion Instructions
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Functionality
 
-### `npm test`
+#### Must Have
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Display a list of users with details such as ID, First Name, Last Name, Email, and Department.
+- Buttons or links to "Add", "Edit", and "Delete" users.
+- A form to input details of a new user or edit details of an existing user.
+- Fetch and manipulate user data via the `/users` endpoint of JSONPlaceholder.
+- Error handling for API request failures with user-friendly messages.
 
-### `npm run build`
+#### Nice to Have
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Pagination or infinite scrolling for the user list.
+- Client-side validation for the user input form (e.g., email format, required fields).
+- Responsive UI.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Guidelines to Develop the Project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Must Have
 
-### `npm run eject`
+1. Use modular and reusable components:
+   - **App Component**: Main wrapper.
+   - **UserList Component**: Displays user list fetched from the API.
+   - **UserForm Component**: Handles adding and editing user details.
+   - **ErrorBoundary Component**: Catches errors and displays messages.
+2. Manage state using React's `useState` or a state management library like Redux.
+3. Fetch data in `componentDidMount()` or `useEffect`.
+4. Use `POST`, `PUT`, and `DELETE` methods for creating, updating, and deleting users, respectively.
+5. Implement clean and readable code with comments and documentation.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Nice to Have
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Use CSS frameworks like Bootstrap for styling.
+- Optimize the application for scalability and performance.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Submission Instructions
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### Must Have
 
-## Learn More
+1. Submit the project repository link on GitHub.
+2. Include a `README.md` with setup instructions, project description, and usage details.
+3. Ensure the project runs without errors.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Nice to Have
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Provide a demo link or video showcasing the app.
 
-### Code Splitting
+## Resources
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Design Files
 
-### Analyzing the Bundle Size
+- No specific design files provided. Create a clean and intuitive UI.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### APIs
 
-### Making a Progressive Web App
+- JSONPlaceholder `/users` endpoint:
+  - Base URL: `https://jsonplaceholder.typicode.com`
+  - Endpoints:
+    - `GET /users`: Fetch users.
+    - `POST /users`: Add a new user.
+    - `PUT /users/{id}`: Edit user details.
+    - `DELETE /users/{id}`: Delete a user.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Third-party Packages
 
-### Advanced Configuration
+- React
+- Axios or Fetch for API calls
+- React Router (if navigation is required)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## Setup the Project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. Initialize a new React project using `create-react-app`:
+   ```bash
+   npx create-react-app user-management-app
+   cd user-management-app
+   ```
+2. Install necessary packages:
+   ```bash
+   npm install axios react-router-dom
+   ```
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Component Structure
+
+1. **App Component**: Main wrapper that holds all child components.
+2. **UserList Component**: Displays the list of users fetched from the API.
+3. **UserForm Component**: Handles adding and editing user details.
+4. **ErrorBoundary Component**: Catches errors and displays user-friendly messages.
+
+---
+
+## State Management
+
+- Use the `state` property or hooks like `useState` to manage data and UI updates:
+  - **User Data**: Store the list of users fetched from the API.
+  - **Form State**: Store the current user data for add/edit functionality.
+  - **Error State**: Store any error messages to display when API requests fail.
+
+---
+
+## Features
+
+1. **Fetching and Displaying Users**
+
+   - Fetch the list of users using the `/users` endpoint in `componentDidMount()` or `useEffect`.
+   - Display users in a table or list format with "Edit" and "Delete" buttons.
+
+2. **Adding a New User**
+
+   - Add an "Add User" button to open a form.
+   - Form fields: ID, First Name, Last Name, Email, Department.
+   - Submit the form using a `POST` request to the `/users` endpoint.
+
+3. **Editing a User**
+
+   - Populate form fields with the current data on clicking "Edit".
+   - Submit the form using a `PUT` request to `/users/{id}`.
+
+4. **Deleting a User**
+
+   - Use a `DELETE` request to `/users/{id}`.
+   - Remove the user from the state.
+
+5. **Error Handling**
+   - Use `try-catch` blocks for API calls.
+   - Display friendly error messages to the user.
+
+---
+
+## Bonus Features
+
+1. **Pagination or Infinite Scrolling**
+
+   - Implement pagination using state variables for the current page and users per page.
+
+2. **Client-side Validation**
+
+   - Validate inputs like email format and required fields before submitting.
+
+3. **Responsive UI**
+   - Use CSS or a framework like Bootstrap to make the interface mobile-friendly.
+
+---
+
+## Links
+
+- **GitHub Repository**: [User Management App](https://github.com/akhilbhumireddy/usermanagementapp.git)
+- **Deployment Link**: [Live Demo](https://akhilsusermanagement.netlify.app/)

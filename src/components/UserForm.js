@@ -34,6 +34,10 @@ function UserForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!formData.name || !formData.email || !formData.department) {
+      setError("All fields are required.");
+      return;
+    }
     const url = id
       ? `https://jsonplaceholder.typicode.com/users/${id}`
       : "https://jsonplaceholder.typicode.com/users";

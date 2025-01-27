@@ -6,14 +6,23 @@ import "../styles/UserList.css";
 function UserList() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(5);
   const navigate = useNavigate();
 
   useEffect(() => {
+    fetchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
+
+  const fetchUsers = () => {
     axios
-      .get("https://jsonplaceholder.typicode.com/users")
+      .get(
+        `https://jsonplaceholder.typicode.com/users?_page=${currentPage}&_limit=${usersPerPage}`
+      )
       .then((response) => setUsers(response.data))
       .catch((err) => setError("Failed to fetch users"));
-  }, []);
+  };
 
   const handleDelete = (id) => {
     axios
@@ -22,10 +31,14 @@ function UserList() {
       .catch(() => setError("Failed to delete user"));
   };
 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="user-list">
-      <h1>User List</h1>
-      <button onClick={() => navigate("/add")}>Add User</button>
+      <h1>User Management</h1>
+      <button className="add-user-btn" onClick={() => navigate("/add")}>
+        Add User
+      </button>
       {error && <p className="error">{error}</p>}
       <table>
         <thead>
@@ -56,6 +69,13 @@ function UserList() {
           ))}
         </tbody>
       </table>
+      <div className="pagination">
+        {[...Array(10).keys()].map((num) => (
+          <button key={num + 1} onClick={() => paginate(num + 1)}>
+            {num + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
